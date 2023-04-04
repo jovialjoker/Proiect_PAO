@@ -4,13 +4,15 @@ import java.util.*;
 public class User implements IEntity{
     private UUID id;
     private String name;
+    private int age;
     public User() {
         this.id = UUID.randomUUID();
     }
 
-    public User(UUID id, String name) {
+    public User(UUID id, String name, int age) {
         this.id = id;
         this.name = name;
+        this.age = age;
     }
 
     public UUID getId() {
@@ -27,5 +29,13 @@ public class User implements IEntity{
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public void setAge(int age) {
+        this.age = age;
     }
 }

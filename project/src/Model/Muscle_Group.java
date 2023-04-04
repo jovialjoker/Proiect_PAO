@@ -1,6 +1,6 @@
 package Model;
 
-public class Muscle_Group {
+public class Muscle_Group implements IEntity{
     private int Id;
     private String Name;
 

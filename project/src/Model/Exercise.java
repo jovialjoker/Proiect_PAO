@@ -1,23 +1,24 @@
 package Model;
 
+import Model.Enums.Muscle_Groups;
+
 import java.util.*;
 
 public class Exercise implements IEntity {
     private UUID id;
     private String name;
     private String descr;
-    private List<Muscle_Group> muscleGroupList;
+    private Muscle_Groups muscleGroup;
 
     public Exercise() {
         this.id = UUID.randomUUID();
-        this.muscleGroupList = new ArrayList<Muscle_Group>();
     }
 
-    public Exercise(UUID id, String name, String descr, List<Muscle_Group> muscleGroupList) {
+    public Exercise(UUID id, String name, String descr, Muscle_Groups muscleGroup) {
         this.id = id;
         this.name = name;
         this.descr = descr;
-        this.muscleGroupList = muscleGroupList;
+        this.muscleGroup = muscleGroup;
     }
 
     public UUID getId() {
@@ -42,5 +43,13 @@ public class Exercise implements IEntity {
 
     public void setDescr(String descr) {
         this.descr = descr;
+    }
+
+    public Muscle_Groups getMuscleGroup(){
+        return this.muscleGroup;
+    }
+
+    public void setMuscleGroup(Muscle_Groups muscleGroup){
+        this.muscleGroup = muscleGroup;
     }
 }
