@@ -1,8 +1,7 @@
 import Controller.SplitController;
 import Controller.UserController;
+import Model.*;
 import Model.Enums.Muscle_Groups;
-import Model.Exercise;
-import Model.User;
 
 import java.util.*;
 
@@ -33,6 +32,7 @@ public class Main {
                         System.out.println("\nAge:\n");
                         newUser.setAge(Integer.parseInt(sc.nextLine()));
                         _userController.AddUser(newUser);
+                        System.out.println("\n New user created succesfully!");
                     } else {
                         switch (option) {
                             case "2" -> {
@@ -40,7 +40,27 @@ public class Main {
                                 break;
                             }
                             case "3" -> {
-                                System.out.println("not implemented 3");
+//                                Workout newWorkout = new Workout();
+//                                System.out.println("\nCreate your new Workout:\n");
+//                                System.out.println("\nName:");
+//                                newExercise.setName(sc.nextLine());
+//                                System.out.println("\nDescription:");
+//                                newExercise.setDescr(sc.nextLine());
+//
+//                                System.out.println("\n Choose the muscle group targeted:");
+//                                for(Muscle_Groups value: Muscle_Groups.values()){
+//                                    System.out.println("\n" + value.getLabel() + ": " + value.name());
+//                                }
+//                                option = sc.nextLine();
+//                                try {
+//                                    int index = Integer.parseInt(option);
+//                                    Muscle_Groups mg = Arrays.stream(Muscle_Groups.values()).filter(e -> e.getLabel() == index).findFirst().get();
+//                                    newExercise.setMuscleGroup(mg);
+//                                } catch (Exception e) {
+//
+//                                }
+//                                _splitController.AddExercise(newExercise);
+                                System.out.println("\n New exercise created succesfully!");
                                 break;
                             }
                             case "4" -> {
@@ -52,7 +72,7 @@ public class Main {
                                 newExercise.setDescr(sc.nextLine());
 
                                 System.out.println("\n Choose the muscle group targeted:");
-                                for(Muscle_Groups value: Muscle_Groups.values()){
+                                for (Muscle_Groups value : Muscle_Groups.values()) {
                                     System.out.println("\n" + value.getLabel() + ": " + value.name());
                                 }
                                 option = sc.nextLine();
@@ -63,7 +83,32 @@ public class Main {
                                 } catch (Exception e) {
 
                                 }
-                                _splitController.AddExercise(newExercise);
+
+                                System.out.println("\n Choose the type of the exercise: \n 1. Cardio \n 2. Bodybuilding");
+
+                                option = sc.nextLine();
+                                try {
+                                    int index = Integer.parseInt(option);
+                                    if (index == 1) {
+                                        Cardio_Exercise cardioExercise = new Cardio_Exercise(newExercise);
+                                        System.out.println("\nTime:");
+                                        cardioExercise.setTime(Integer.parseInt(sc.nextLine()));
+                                        System.out.println("\nDistance:");
+                                        cardioExercise.setDistance(Integer.parseInt(sc.nextLine()));
+                                        _splitController.AddExercise(cardioExercise);
+                                    } else if (index == 2) {
+                                        Bodybuilding_Exercise bbEx = new Bodybuilding_Exercise(newExercise);
+                                        System.out.println("\nWeight:");
+                                        bbEx.setWeight(Integer.parseInt(sc.nextLine()));
+                                        System.out.println("\nNo of reps:");
+                                        bbEx.setRepsNo(Integer.parseInt(sc.nextLine()));
+                                        _splitController.AddExercise(bbEx);
+                                    }
+                                } catch (Exception e) {
+
+                                }
+
+                                System.out.println("\n New exercise created succesfully!");
                                 break;
                             }
                         }
@@ -109,7 +154,36 @@ public class Main {
                                 break;
                             }
                             case "4": {
-                                System.out.println("not implemented 4");
+                                List<Exercise> exercises = _splitController.GetExercises();
+                                if (exercises.size() != 0) {
+                                    do {
+                                        int i = 1;
+                                        for (Exercise exercise : exercises) {
+                                            System.out.println("\n " + i + ". " + exercise.getName());
+                                            i++;
+                                        }
+                                        System.out.println("\n If you want to see more info about a exercise type the number associated with it");
+                                        option = sc.nextLine();
+                                        try {
+                                            int index = Integer.parseInt(option) - 1;
+                                            Exercise exercise = _splitController.GetExercise(exercises.get(index).getId());
+                                            System.out.println("\n Your exercise is: " + exercise.getName());
+                                            System.out.println("\n Description: " + exercise.getDescr());
+                                            System.out.println("\n Muscle group targeted: " + exercise.getMuscleGroup());
+                                            if (exercise.getClass() == Bodybuilding_Exercise.class) {
+                                                System.out.println("\n No of reps:  " + ((Bodybuilding_Exercise) exercise).getRepsNo());
+                                                System.out.println("\n Weight:  " + ((Bodybuilding_Exercise) exercise).getWeight());
+                                            } else if (exercise.getClass() == Cardio_Exercise.class) {
+                                                System.out.println("\n Time:  " + ((Cardio_Exercise) exercise).getTime());
+                                                System.out.println("\n Distance:  " + ((Cardio_Exercise) exercise).getDistance());
+                                            }
+                                        } catch (Exception e) {
+
+                                        }
+                                    } while (!option.equals("stop") && !option.equals("back"));
+                                } else {
+                                    System.out.println("\n There are no users! Create some users and come back!");
+                                }
                                 break;
                             }
                         }

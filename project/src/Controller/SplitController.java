@@ -1,8 +1,6 @@
 package Controller;
 
-import Model.Exercise;
-import Model.Split;
-import Model.Workout;
+import Model.*;
 import Service.SplitService;
 
 import java.util.List;

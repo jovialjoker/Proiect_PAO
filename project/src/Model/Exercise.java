@@ -21,6 +21,7 @@ public class Exercise implements IEntity {
         this.muscleGroup = muscleGroup;
     }
 
+
     public UUID getId() {
         return id;
     }
@@ -45,8 +46,9 @@ public class Exercise implements IEntity {
         this.descr = descr;
     }
 
-    public Muscle_Groups getMuscleGroup(){
-        return this.muscleGroup;
+    public Muscle_Groups getMuscleGroups(){ return this.muscleGroup;}
+    public String getMuscleGroup(){
+        return this.muscleGroup.name();
     }
 
     public void setMuscleGroup(Muscle_Groups muscleGroup){

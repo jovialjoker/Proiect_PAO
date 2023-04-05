@@ -1,5 +1,7 @@
 package Model;
 
+import Model.Enums.Muscle_Groups;
+
 import java.util.List;
 import java.util.UUID;
 public class Cardio_Exercise extends Exercise{
@@ -10,10 +12,14 @@ public class Cardio_Exercise extends Exercise{
         super();
     }
 
-    public Cardio_Exercise(UUID id, String nume, String descr, float time, float distance, List<Muscle_Group> muscleGroupList) {
+    public Cardio_Exercise(UUID id, String nume, String descr, float time, float distance, Muscle_Groups muscleGroupList) {
         super(id, nume, descr, muscleGroupList);
         this.time = time;
         this.distance = distance;
+    }
+
+    public Cardio_Exercise(Exercise exercise){
+        super(exercise.getId(), exercise.getName(), exercise.getDescr(), exercise.getMuscleGroups());
     }
 
     public float getTime() {
