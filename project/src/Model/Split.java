@@ -5,16 +5,20 @@ import java.util.*;
 public class Split implements IEntity{
     private UUID idSplit;
     private String name;
-    private List<Workout> workouts;
+    private TreeMap<Integer, Workout> workouts;
     public Split() {
         this.idSplit = UUID.randomUUID();
-        this.workouts = new ArrayList<>();
+        this.workouts = new TreeMap<>();
     }
 
     public Split(UUID idSplit, String name, List<Workout> workouts) {
         this.idSplit = idSplit;
         this.name = name;
-        this.workouts = workouts;
+        int i = new Integer("0");
+        for(Workout workout: workouts){
+            this.workouts.put(i, workout);
+            i++;
+        }
     }
 
     public UUID getIdSplit() {
@@ -33,11 +37,11 @@ public class Split implements IEntity{
         this.name = name;
     }
 
-    public List<Workout> getWorkouts() {
+    public TreeMap<Integer, Workout> getWorkouts() {
         return workouts;
     }
 
-    public void setWorkouts(List<Workout> workouts) {
+    public void setWorkouts(TreeMap<Integer, Workout> workouts) {
         this.workouts = workouts;
     }
 }
