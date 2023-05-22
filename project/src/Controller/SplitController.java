@@ -3,6 +3,7 @@ package Controller;
 import Model.*;
 import Service.SplitService;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.UUID;
 
@@ -13,7 +14,7 @@ public class SplitController {
         _service = new SplitService();
     }
 
-    public void AddExercise(Exercise newExercise) {
+    public void AddExercise(Exercise newExercise) throws SQLException {
         _service.AddExercise(newExercise);
     }
 
@@ -25,7 +26,7 @@ public class SplitController {
         _service.AddSplit(newSplit);
     }
 
-    public Exercise GetExercise(UUID id) {
+    public Exercise GetExercise(UUID id) throws SQLException {
         return _service.GetExercise(id);
     }
 
@@ -37,7 +38,7 @@ public class SplitController {
         return _service.GetSplit(id);
     }
 
-    public List<Exercise> GetExercises() {
+    public List<Exercise> GetExercises() throws SQLException {
         return _service.GetExercises();
     }
 

@@ -4,6 +4,7 @@ import Controller.SplitController;
 import Controller.UserController;
 import Model.Enums.Muscle_Groups;
 
+import java.sql.SQLException;
 import java.util.*;
 
 public class CRUDMenu {
@@ -25,7 +26,7 @@ public class CRUDMenu {
         return menu;
     }
 
-    public void SeeMenu(){
+    public void SeeMenu() throws SQLException {
 
         System.out.println("WORKOUT BUDDY");
         Scanner sc = new Scanner(System.in);
