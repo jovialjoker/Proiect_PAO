@@ -49,10 +49,9 @@ public class ExerciseRepository implements IRepository<Exercise> {
 
         statement.setString(9, String.valueOf(exercise.getMuscleGroups().getLabel()));
 
-        try{
+        try {
             statement.executeUpdate();
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             System.out.println(e.getMessage());
         }
     }
@@ -60,14 +59,20 @@ public class ExerciseRepository implements IRepository<Exercise> {
 
     @Override
     public Exercise get(UUID id) throws SQLException {
-        String query = "select * " +
-                "from project.exercise e" +
-                "where id = ?";
+        String query = "select * from project.exercise where id = ?";
         PreparedStatement statement = context.prepareStatement(query);
         statement.setString(1, id.toString());
 
         ResultSet resultSet = statement.executeQuery();
-        return setExercise(resultSet);
+        Exercise ex = new Exercise();
+        try {
+            while (resultSet.next()) {
+                ex = setExercise(resultSet);
+            }
+        } catch (Exception e) {
+            int c = 1;
+        }
+        return ex;
     }
 
     @Override
@@ -78,14 +83,14 @@ public class ExerciseRepository implements IRepository<Exercise> {
 
         List<Exercise> exerciseList = new ArrayList<Exercise>();
 
-        while(resultSet.next()) {
+        while (resultSet.next()) {
             Exercise exercise = new Exercise();
-        exercise = setExercise(resultSet);
-        exerciseList.add(exercise);
-    }
+            exercise = setExercise(resultSet);
+            exerciseList.add(exercise);
+        }
 
         return exerciseList;
-}
+    }
 
     @Override
     public void delete(UUID id) throws SQLException {
@@ -95,29 +100,41 @@ public class ExerciseRepository implements IRepository<Exercise> {
     }
 
     private Exercise setExercise(ResultSet resultSet) throws SQLException {
-        Muscle_Groups mg = Arrays.stream(Muscle_Groups.values()).filter(e -> {
-            try {
-                return e.getLabel() == resultSet.getInt("targetedMuscleGroup");
-            } catch (SQLException ex) {
-                throw new RuntimeException(ex);
-            }
-        }).findFirst().get();
         Exercise ex = new Exercise(UUID.fromString(resultSet.getString("id")),
                 resultSet.getString("name"),
-                resultSet.getString("description"),
-                mg
+                resultSet.getString("description")
         );
         int type = resultSet.getInt("exercisetype");
 
         if (type == ExerciseTypes.BodyBuilding.getLabel()) {
             Bodybuilding_Exercise bodybuildingExercise = new Bodybuilding_Exercise(ex);
+            resultSet.getFloat("distance");
+            resultSet.getFloat("time");
             bodybuildingExercise.setRepsNo(resultSet.getInt("repsNo"));
             bodybuildingExercise.setWeight(resultSet.getInt("weight"));
+            Muscle_Groups mg = Arrays.stream(Muscle_Groups.values()).filter(e -> {
+                try {
+                    return e.getLabel() == resultSet.getInt("targetedMuscleGroup");
+                } catch (SQLException ee) {
+                    throw new RuntimeException(ee);
+                }
+            }).findFirst().get();
+            bodybuildingExercise.setMuscleGroup(mg);
             return bodybuildingExercise;
         } else {
             Cardio_Exercise cardioExercise = new Cardio_Exercise(ex);
             cardioExercise.setDistance(resultSet.getFloat("distance"));
             cardioExercise.setTime(resultSet.getFloat("time"));
+            resultSet.getInt("repsNo");
+            resultSet.getInt("weight");
+            Muscle_Groups mg = Arrays.stream(Muscle_Groups.values()).filter(e -> {
+                try {
+                    return e.getLabel() == resultSet.getInt("targetedMuscleGroup");
+                } catch (SQLException ee) {
+                    throw new RuntimeException(ee);
+                }
+            }).findFirst().get();
+            cardioExercise.setMuscleGroup(mg);
             return cardioExercise;
         }
     }

@@ -12,13 +12,13 @@ public class Workout implements IEntity {
 
     public Workout() {
         this.idWorkout = UUID.randomUUID();
-        this.exercises = new ArrayList<>();
+        this.exercises = new ArrayList<Exercise>();
     }
 
-    public Workout(UUID idWorkout, String name, List<Exercise> exercises) {
+    public Workout(UUID idWorkout, String name) {
         this.idWorkout = idWorkout;
         this.name = name;
-        this.exercises = exercises;
+        this.exercises = new ArrayList<Exercise>();
     }
 
     public UUID getIdWorkout() {

@@ -20,10 +20,10 @@ public class UnitOfWork {
     private UnitOfWork()
     {
         exerciseRepository = new ExerciseRepository();
-        splitRepository = new SplitRepository();
         muscleGroupRepository = new Muscle_GroupRepository();
         userRepository = new UserRepository();
-        workoutRepository = new WorkoutRepository();
+        workoutRepository = new WorkoutRepository(this.exerciseRepository);
+        splitRepository = new SplitRepository(this.workoutRepository);
     }
 
     public static synchronized UnitOfWork getInstance()

@@ -18,11 +18,11 @@ public class SplitController {
         _service.AddExercise(newExercise);
     }
 
-    public void AddWorkout(Workout newWorkout) {
+    public void AddWorkout(Workout newWorkout) throws SQLException {
         _service.AddWorkout(newWorkout);
     }
 
-    public void AddSplit(Split newSplit) {
+    public void AddSplit(Split newSplit) throws SQLException {
         _service.AddSplit(newSplit);
     }
 
@@ -30,11 +30,11 @@ public class SplitController {
         return _service.GetExercise(id);
     }
 
-    public Workout GetWorkout(UUID id) {
+    public Workout GetWorkout(UUID id) throws SQLException {
         return _service.GetWorkout(id);
     }
 
-    public Split GetSplit(UUID id) {
+    public Split GetSplit(UUID id) throws SQLException {
         return _service.GetSplit(id);
     }
 
@@ -42,11 +42,11 @@ public class SplitController {
         return _service.GetExercises();
     }
 
-    public List<Workout> GetWorkouts() {
+    public List<Workout> GetWorkouts() throws SQLException {
         return _service.GetWorkouts();
     }
 
-    public List<Split> GetSplits() {
+    public List<Split> GetSplits() throws SQLException {
         return _service.GetSplits();
     }
 }

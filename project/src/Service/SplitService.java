@@ -35,12 +35,12 @@ public class SplitService implements ISplitService{
     }
 
     @Override
-    public void AddWorkout(Workout newWorkout) {
+    public void AddWorkout(Workout newWorkout) throws SQLException {
         uow.workoutRepository.add(newWorkout);
     }
 
     @Override
-    public void AddSplit(Split newSplit) {
+    public void AddSplit(Split newSplit) throws SQLException {
         uow.splitRepository.add(newSplit);
     }
 
@@ -50,12 +50,12 @@ public class SplitService implements ISplitService{
     }
 
     @Override
-    public Workout GetWorkout(UUID id) {
+    public Workout GetWorkout(UUID id) throws SQLException {
         return uow.workoutRepository.get(id);
     }
 
     @Override
-    public Split GetSplit(UUID id) {
+    public Split GetSplit(UUID id) throws SQLException {
         return uow.splitRepository.get(id);
     }
 
@@ -65,12 +65,12 @@ public class SplitService implements ISplitService{
     }
 
     @Override
-    public List<Workout> GetWorkouts() {
+    public List<Workout> GetWorkouts()throws SQLException {
         return uow.workoutRepository.getAll();
     }
 
     @Override
-    public List<Split> GetSplits() {
+    public List<Split> GetSplits() throws SQLException{
         return uow.splitRepository.getAll();
     }
 }

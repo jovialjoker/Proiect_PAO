@@ -11,14 +11,10 @@ public class Split implements IEntity{
         this.workouts = new TreeMap<>();
     }
 
-    public Split(UUID idSplit, String name, List<Workout> workouts) {
+    public Split(UUID idSplit, String name) {
         this.idSplit = idSplit;
         this.name = name;
-        int i = new Integer("0");
-        for(Workout workout: workouts){
-            this.workouts.put(i, workout);
-            i++;
-        }
+
     }
 
     public UUID getIdSplit() {

@@ -4,8 +4,10 @@ import Controller.SplitController;
 import Controller.UserController;
 import Model.Enums.Muscle_Groups;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.*;
+import Utils.CSVUtils.CSVWriter;
 
 public class CRUDMenu {
     private static CRUDMenu menu = null;
@@ -26,7 +28,7 @@ public class CRUDMenu {
         return menu;
     }
 
-    public void SeeMenu() throws SQLException {
+    public void SeeMenu() throws SQLException, IOException {
 
         System.out.println("WORKOUT BUDDY");
         Scanner sc = new Scanner(System.in);
@@ -51,6 +53,7 @@ public class CRUDMenu {
                         newUser.setAge(Integer.parseInt(sc.nextLine()));
                         _userController.AddUser(newUser);
                         System.out.println("\n New user created successfully!");
+                        CSVWriter.Write("New user inserted");
                     } else {
                         switch (option) {
                             case "2" -> {

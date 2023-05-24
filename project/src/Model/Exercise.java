@@ -21,6 +21,12 @@ public class Exercise implements IEntity {
         this.muscleGroup = muscleGroup;
     }
 
+    public Exercise(UUID id, String name, String descr) {
+        this.id = id;
+        this.name = name;
+        this.descr = descr;
+    }
+
 
     public UUID getId() {
         return id;
